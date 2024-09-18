@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+        table {
+            border: 2px solid #333;
+            border-collapse: collapse;
+            background-color: white;
+        }
+        input[type="text"] {
+            width: 100%;
+            height: 60px;
+            font-size: 30px;
+            text-align: right;
+            border: none;
+            background-color: #eef;
+            padding: 10px;
+            border-radius: 5px 5px 0 0;
+            outline: none;
+        }
+        input[type="button"] {
+            width: 100%;
+            padding: 20px;
+            border: none;
+            background-color: #f0f0f0;
+            color: black;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        input[type="button"]:hover {
+            background-color: #ddd;
+        }
+        .equal {
+            background-color: red;
+            color: white;
+        }
+        .equal:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td colspan="4">
+                <input type="text" id="result" disabled>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="button" value="%" onclick="show('%')"></td>
+            <td><input type="button" value="CE" onclick="clearEntry()"></td>
+            <td><input type="button" value="C" onclick="clearAll()"></td>
+            <td><input type="button" value="&#247;" onclick="show('/')"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="1/x" onclick="inverse()"></td>
+            <td><input type="button" value="x²" onclick="square()"></td>
+            <td><input type="button" value="&#8730;x" onclick="sqrt()"></td>
+            <td><input type="button" value="&#10006;" onclick="show('*')"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="7" onclick="show('7')"></td>
+            <td><input type="button" value="8" onclick="show('8')"></td>
+            <td><input type="button" value="9" onclick="show('9')"></td>
+            <td><input type="button" value="-" onclick="show('-')"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="4" onclick="show('4')"></td>
+            <td><input type="button" value="5" onclick="show('5')"></td>
+            <td><input type="button" value="6" onclick="show('6')"></td>
+            <td><input type="button" value="+" onclick="show('+')"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="1" onclick="show('1')"></td>
+            <td><input type="button" value="2" onclick="show('2')"></td>
+            <td><input type="button" value="3" onclick="show('3')"></td>
+            <td rowspan="2"><input type="button" value="=" class="equal" onclick="calculate()"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="0" onclick="show('0')"></td>
+            <td><input type="button" value="." onclick="show('.')"></td>
+            <td><input type="button" value="X" onclick="clearLast()"></td>
+        </tr>
+    </table>
+
+    <script>
+        function show(value) {
+            document.getElementById("result").value += value;
+        }
+
+        function clearAll() {
+            document.getElementById("result").value = "";
+        }
+
+        function clearEntry() {
+            let result = document.getElementById("result").value;
+            document.getElementById("result").value = result.slice(0, -1);
+        }
+
+        function clearLast() {
+            document.getElementById("result").value = "";
+        }
+
+        function calculate() {
+            try {
+                document.getElementById("result").value = eval(document.getElementById("result").value);
+            } catch (error) {
+                document.getElementById("result").value = "Error";
+            }
+        }
+
+        function square() {
+            document.getElementById("result").value = Math.pow(eval(document.getElementById("result").value), 2);
+        }
+
+        function sqrt() {
+            document.getElementById("result").value = Math.sqrt(eval(document.getElementById("result").value));
+        }
+
+        function inverse() {
+            document.getElementById("result").value = 1 / eval(document.getElementById("result").value);
+        }
+    </script>
+</body>
+</html>
